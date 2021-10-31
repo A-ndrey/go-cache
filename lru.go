@@ -21,6 +21,7 @@ func NewInMemLRU(size int) Cache {
 func (l *lru) Put(element Cacheable) Cacheable {
 	if le, ok := l.itemsMap[element.Identify()]; ok {
 		l.items.MoveToFront(le)
+		return le.Value.(Cacheable)
 	}
 
 	if l.items.Len() == l.size {
